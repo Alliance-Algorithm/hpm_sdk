@@ -92,9 +92,11 @@ static void bus_reset(uint8_t rhport)
 }
 
 /* Initialize controller to device mode */
-void dcd_init(uint8_t rhport)
+bool dcd_init(uint8_t rhport, const tusb_rhport_init_t* rh_init)
 {
     uint32_t int_mask;
+
+    (void) rh_init;
 
     usb_device_handle[rhport].regs     = _dcd_controller[rhport].regs;
     usb_device_handle[rhport].dcd_data =  &_dcd_data;
@@ -108,13 +110,14 @@ void dcd_init(uint8_t rhport)
 
     usb_device_init(&usb_device_handle[rhport], int_mask);
 
-    return;
+    return true;
 }
 
 /* De-initialize controller */
-void dcd_deinit(uint8_t rhport)
+bool dcd_deinit(uint8_t rhport)
 {
     usb_device_deinit(&usb_device_handle[rhport]);
+    return true;
 }
 
 /* Enable device interrupt */
@@ -151,6 +154,12 @@ void dcd_connect(uint8_t rhport)
 void dcd_disconnect(uint8_t rhport)
 {
     usb_device_disconnect(&usb_device_handle[rhport]);
+}
+
+void dcd_sof_enable(uint8_t rhport, bool en)
+{
+    (void) rhport;
+    (void) en;
 }
 
 /*---------------------------------------------------------------------*
@@ -247,12 +256,6 @@ void dcd_int_handler(uint8_t rhport)
         if (!usb_device_get_port_ccs(handle)) {
             dcd_event_t event = {.rhport = rhport, .event_id = DCD_EVENT_UNPLUGGED};
             dcd_event_handler(&event, true);
-        } else {
-            dcd_event_t event = {.rhport = rhport, .event_id = DCD_EVENT_PLUGGED};
-            if (usb_device_get_port_reset_status(handle) == 0) {
-                event.plugged.speed = usb_device_get_port_speed(handle);
-                dcd_event_handler(&event, true);
-            }
         }
     }
 
