@@ -5,7 +5,7 @@ sdk_inc(src)
 sdk_inc(src/portable/ehci)
 
 if(CONFIG_USB_DEVICE_CDC OR CONFIG_USB_DEVICE_HID OR CONFIG_USB_DEVICE_MSC
-  OR CONFIG_USB_DEVICE_AUDIO)
+  OR CONFIG_USB_DEVICE_AUDIO OR CONFIG_USB_DEVICE_VENDOR)
 set(CONFIG_TINYUSB_DEVICE 1)
 endif()
 
@@ -17,6 +17,7 @@ sdk_src_ifdef(CONFIG_USB_DEVICE_CDC src/class/cdc/cdc_device.c)
 sdk_src_ifdef(CONFIG_USB_DEVICE_MSC src/class/msc/msc_device.c)
 sdk_src_ifdef(CONFIG_USB_DEVICE_HID src/class/hid/hid_device.c)
 sdk_src_ifdef(CONFIG_USB_DEVICE_AUDIO src/class/audio/audio_device.c)
+sdk_src_ifdef(CONFIG_USB_DEVICE_VENDOR src/class/vendor/vendor_device.c)
 sdk_src(src/device/usbd.c)
 sdk_src(src/device/usbd_control.c)
 sdk_src(src/portable/hpm/dcd_hpm.c)
