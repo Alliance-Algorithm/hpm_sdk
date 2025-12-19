@@ -413,6 +413,10 @@ bool tu_edpt_stream_write_zlp_if_needed(uint8_t hwid, tu_edpt_stream_t* s, uint3
   // ZLP condition: no pending data, last transferred bytes is multiple of packet size
   const uint16_t mps = s->is_mps512 ? TUSB_EPSIZE_BULK_HS : TUSB_EPSIZE_BULK_FS;
   TU_VERIFY(tu_fifo_empty(&s->ff) && last_xferred_bytes > 0 && (0 == (last_xferred_bytes & (mps - 1))));
+  return tu_edpt_stream_write_zlp(hwid, s);
+}
+
+bool tu_edpt_stream_write_zlp(uint8_t hwid, tu_edpt_stream_t* s) {
   TU_VERIFY(stream_claim(hwid, s));
   TU_ASSERT(stream_xfer(hwid, s, 0));
   return true;
@@ -438,7 +442,7 @@ uint32_t tu_edpt_stream_write_xfer(uint8_t hwid, tu_edpt_stream_t* s) {
 }
 
 uint32_t tu_edpt_stream_write(uint8_t hwid, tu_edpt_stream_t *s, const void *buffer, uint32_t bufsize) {
-  TU_VERIFY(bufsize > 0); // TODO support ZLP
+  TU_VERIFY(bufsize > 0);
 
   if (0 == tu_fifo_depth(&s->ff)) {
     // no fifo for buffered

@@ -133,6 +133,9 @@ uint32_t tu_edpt_stream_write_xfer(uint8_t hwid, tu_edpt_stream_t* s);
 // Start an zero-length packet if needed
 bool tu_edpt_stream_write_zlp_if_needed(uint8_t hwid, tu_edpt_stream_t* s, uint32_t last_xferred_bytes);
 
+// Explicitly send a zero-length packet
+bool tu_edpt_stream_write_zlp(uint8_t hwid, tu_edpt_stream_t* s);
+
 // Get the number of bytes available for writing to FIFO
 // Note: if no fifo, return endpoint size if not busy, 0 otherwise
 uint32_t tu_edpt_stream_write_available(uint8_t hwid, tu_edpt_stream_t* s);

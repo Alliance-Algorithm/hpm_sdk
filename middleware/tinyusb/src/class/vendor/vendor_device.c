@@ -152,6 +152,16 @@ uint32_t tud_vendor_n_write_available (uint8_t itf) {
   return tu_edpt_stream_write_available(rhport, &p_itf->tx.stream);
 }
 
+#if CFG_TUD_VENDOR_TX_BUFSIZE == 0
+bool tud_vendor_n_write_zlp(uint8_t itf) {
+  TU_VERIFY(itf < CFG_TUD_VENDOR);
+  vendord_interface_t* p_itf = &_vendord_itf[itf];
+  const uint8_t rhport = 0;
+
+  return tu_edpt_stream_write_zlp(rhport, &p_itf->tx.stream);
+}
+#endif
+
 //--------------------------------------------------------------------+
 // USBD Driver API
 //--------------------------------------------------------------------+
