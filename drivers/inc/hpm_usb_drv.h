@@ -570,6 +570,13 @@ static inline void usb_phyctrl1_set_not_utmi_suspend(USB_Type *ptr)
 void usb_dcd_bus_reset(USB_Type *ptr, uint16_t ep0_max_packet_size);
 
 /**
+ * @brief Set usb forced to full speed mode
+ *
+ * @note Must be called before usb_dcd_init
+ */
+void usb_dcd_force_full_speed(void);
+
+/**
  * @brief Initialize controller to device mode
  *
  * @param[in] ptr A USB peripheral base address

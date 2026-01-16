@@ -32,6 +32,8 @@ enum {
  *---------------------------------------------------------------------
  */
 
+static bool force_full_speed = false;
+
 /* De-initialize USB phy */
 void usb_phy_deinit(USB_Type *ptr)
 {
@@ -119,6 +121,10 @@ void usb_dcd_bus_reset(USB_Type *ptr, uint16_t ep0_max_packet_size)
     }
 }
 
+void usb_dcd_force_full_speed(void) {
+    force_full_speed = true;
+}
+
 void usb_dcd_init(USB_Type *ptr)
 {
     /* Initialize USB phy */
@@ -152,9 +158,10 @@ void usb_dcd_init(USB_Type *ptr)
     ptr->PORTSC1 &= ~USB_PORTSC1_PTW_MASK;
 
 #if defined(CONFIG_USB_DEVICE_FS) || defined(CONFIG_USB_DEVICE_FORCE_FULL_SPEED)
-    /* Set usb forced to full speed mode */
-    ptr->PORTSC1 |= USB_PORTSC1_PFSC_MASK;
+    force_full_speed = true;
 #endif
+    if (force_full_speed)
+        ptr->PORTSC1 |= USB_PORTSC1_PFSC_MASK;
 
     /* Not use interrupt threshold. */
     ptr->USBCMD &= ~USB_USBCMD_ITC_MASK;
