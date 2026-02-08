@@ -1,41 +1,14 @@
-/*
- * Copyright (c) 2023-2025 HPMicro
- *
- * SPDX-License-Identifier: BSD-3-Clause
- *
- */
+#pragma once
 
-#ifndef _HPM_BOARD_H
-#define _HPM_BOARD_H
+#include <stdint.h>
 
-#include "hpm_clock_drv.h"
-#include "hpm_common.h"
-#include "hpm_soc.h"
-#include "hpm_soc_feature.h"
-#include "pinmux.h"
-#include <stdio.h>
-#if !defined(CONFIG_NDEBUG_CONSOLE) || !CONFIG_NDEBUG_CONSOLE
-# include "hpm_debug_console.h"
-#endif
+#include <hpm_soc.h>
 
-#define BOARD_NAME          "hpm5361_kaiser"
+#include "pinmux.h" // IWYU pragma: export
+
+#define BOARD_NAME          "rmcs_board"
 #define BOARD_UF2_SIGNATURE (0x0A4D5048UL)
 
-/* Console */
-#if !defined(CONFIG_NDEBUG_CONSOLE) || !CONFIG_NDEBUG_CONSOLE
-# ifndef BOARD_CONSOLE_TYPE
-#  define BOARD_CONSOLE_TYPE CONSOLE_TYPE_UART
-# endif
-# if BOARD_CONSOLE_TYPE == CONSOLE_TYPE_UART
-#  ifndef BOARD_CONSOLE_UART_BASE
-#   define BOARD_CONSOLE_UART_BASE     HPM_UART0
-#   define BOARD_CONSOLE_UART_CLK_NAME clock_uart0
-#  endif
-#  define BOARD_CONSOLE_UART_BAUDRATE (115200UL)
-# endif
-#endif
-
-// TODO Remove - hpm5300evk config，if not use hpm5300evk
 /* User LED / Button */
 #define BOARD_LED_GPIO_CTRL  HPM_GPIO0
 #define BOARD_LED_GPIO_INDEX GPIO_DI_GPIOA
@@ -55,9 +28,6 @@ void board_init(void);
 void board_init_clock(void);
 void board_init_usb_dp_dm_pins(void);
 void board_init_usb(USB_Type* ptr);
-void board_init_console(void);
-void board_print_banner(void);
-void board_print_clock_freq(void);
 
 void board_init_can(MCAN_Type* ptr);
 uint32_t board_init_can_clock(MCAN_Type* ptr);
@@ -98,4 +68,3 @@ void board_delay_ms(uint32_t ms);
 #ifdef __cplusplus
 }
 #endif
-#endif /* _HPM_BOARD_H */

@@ -5,6 +5,8 @@
  *
  */
 
+// IWYU pragma: private, include <hpm_soc.h>
+
 #ifndef HPM_INTERRUPT_H
 #define HPM_INTERRUPT_H
 #include "hpm_common.h"

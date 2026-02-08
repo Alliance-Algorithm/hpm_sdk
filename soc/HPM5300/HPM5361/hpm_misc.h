@@ -5,6 +5,8 @@
  *
  */
 
+#include <stdint.h>
+
 #ifndef HPM_MISC_H
 #define HPM_MISC_H
 

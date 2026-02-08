@@ -1,14 +1,6 @@
-/*
- * Copyright (c) 2023-2025 HPMicro
- *
- * SPDX-License-Identifier: BSD-3-Clause
- *
- */
+#pragma once
 
-#ifndef HPM_PINMUX_H
-#define HPM_PINMUX_H
-
-#include "hpm_soc.h"
+#include <hpm_soc.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,12 +18,10 @@ void init_imu_heater_pwm_pin(void);
 void init_user_key_pin(void);
 void init_user_sw_pin(void);
 void init_imu_int_pins(void);
-//
+
 void init_gpio_pins(void);
 void init_led_pins_as_gpio(void);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* HPM_PINMUX_H */
