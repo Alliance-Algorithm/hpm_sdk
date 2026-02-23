@@ -47,7 +47,7 @@ enum {
 /***********************************************************************************************************************
  * Prototypes
  **********************************************************************************************************************/
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -126,7 +126,7 @@ extern "C" {
     hpm_stat_t otp_write_shadow_register(uint32_t addr, uint32_t val);
 
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 /**
