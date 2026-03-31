@@ -282,6 +282,10 @@ void board_init_i2c(I2C_Type* ptr) {
     }
 }
 
+void board_init_gpio_pins(void) {
+    gpio_set_pin_input(BOARD_APP_GPIO_CTRL, BOARD_APP_GPIO_INDEX, BOARD_APP_GPIO_PIN);
+}
+
 /* ========================================================================== */
 /*                    Shared PWM0 arbitration and state                       */
 /* ========================================================================== */

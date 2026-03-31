@@ -6,8 +6,14 @@
 
 #include "pinmux.h" // IWYU pragma: export
 
-#define BOARD_NAME          "rmcs_board"
-#define BOARD_UF2_SIGNATURE (0x0A4D5048UL)
+#define BOARD_NAME                     "rmcs_board"
+#define BOARD_UF2_SIGNATURE            (0x0A4D5048UL)
+#define BOARD_FLASH_BASE_ADDRESS       (0x80000000UL)
+#define BOARD_FLASH_SIZE               (SIZE_1MB)
+#define BOARD_APP_XPI_NOR_XPI_BASE     (HPM_XPI0)
+#define BOARD_APP_XPI_NOR_CFG_OPT_HDR  (0xfcf90002U)
+#define BOARD_APP_XPI_NOR_CFG_OPT_OPT0 (0x00000005U)
+#define BOARD_APP_XPI_NOR_CFG_OPT_OPT1 (0x00001000U)
 
 /* User LED / Button */
 #define BOARD_LED_GPIO_CTRL  HPM_GPIO0
@@ -60,7 +66,7 @@ bool board_get_user_key_status(void);
 void board_init_user_sw(void);
 bool board_get_user_sw_status(void);
 
-// void board_init_gpio_pins(void);
+void board_init_gpio_pins(void);
 // void board_init_led_pins(void);
 void board_delay_us(uint32_t us);
 void board_delay_ms(uint32_t ms);
